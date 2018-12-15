@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-NOT FINISHED
+NOT COMPLETE
+
 Time: 13m
 """
 
