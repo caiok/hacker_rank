@@ -59,6 +59,22 @@
 #~ 13
 #~ EOF
 
-python3 minOperations.py << EOF
-100000000
+#~ python3 minOperations.py << EOF
+#~ 100000000
+#~ EOF
+
+# -------------------------------------------------------------------------------------- #
+
+python3 findBreakDuration.py << EOF
+3
+2
+15
+3
+0
+6
+7
+3
+5
+7
+8
 EOF
