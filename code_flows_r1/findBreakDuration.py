@@ -1,6 +1,12 @@
 #!/bin/python3
 #  -*- coding: utf-8 -*-
 
+"""
+Result: 11/14
+
+Time: 6h
+"""
+
 import math
 import os
 import random
@@ -10,7 +16,7 @@ import sys
 
 DEBUG = False
 
-MAX_TRIALS = 10**3
+MAX_TRIALS = 10**5 + 1
 
 # =========================================================================== #
 
@@ -24,6 +30,8 @@ class Element(object):
 		self.start_t = start_t
 		self.end_t = end_t
 
+# --------------------------------------------------------------------------- #
+
 class Break(Element):
 	duration:int = None
 	
@@ -36,16 +44,16 @@ class Break(Element):
 	
 	def __repr__(self):
 		return "b%s(%s-%s)" % (self.duration, self.start_t, self.end_t)
-	
-# =========================================================================== #
-	
+
+# --------------------------------------------------------------------------- #
+
 class Presentations(Element):
 	howmany:int = None
 	
 	def __init__(self, howmany, start_t, end_t):
 		super(Presentations, self).__init__(start_t, end_t)
 		self.howmany = howmany
-		print("homany=%s start=%s,end=%s"%(self.howmany,self.start_t, self.end_t))
+		#print("homany=%s start=%s,end=%s"%(self.howmany,self.start_t, self.end_t))
 	
 	def __str__(self):
 		return "p%s" % self.howmany
@@ -57,10 +65,9 @@ class Presentations(Element):
 		assert end_t > self.end_t
 		self.howmany += 1
 		self.end_t = end_t
-		print("> homany=%s end=%s"%(self.howmany,self.end_t))
+		#print("> homany=%s end=%s"%(self.howmany,self.end_t))
 
-
-# --------------------------------------------------------------------------- #
+# =========================================================================== #
 
 class TimeLine(object):
 	first: Element = None
@@ -77,7 +84,7 @@ class TimeLine(object):
 	max_break_time = 0
 	min_presentations_time = 99999999
 	
-	breaks_sorted_list = None
+	breaks_list = []
 	
 	def __str__(self):
 		s = ""
@@ -125,6 +132,7 @@ class TimeLine(object):
 			self.total_breaks += 1
 			self.total_breaks_time += el.duration
 			self.max_break_time = max(self.max_break_time, el.duration)
+			self.breaks_list.append(el)
 		else:
 			self.total_presentations_time += el.howmany
 			self.min_presentations_time = min(self.min_presentations_time, el.howmany)
@@ -168,28 +176,46 @@ class TimeLine(object):
 			if DEBUG: print("Early exit for k < min_presentations_time")
 			return self.max_break_time # We can already exit
 		
-		if self.total_breaks > MAX_TRIALS:
-			# TODO?
-			pass
-		
 		max_breaks_time = 0
-		curr_break = self.first_break
-		while curr_break != None:
+		
+		# curr_break = self.first_break
+		# while curr_break != None:
+		# 	if DEBUG: print("> %s" % curr_break)
+		# 	cog = CenterOfGravity(self, curr_break, self.k)
+		# 	btime = cog.explore()
+		# 
+		# 	if btime == self.total_breaks_time:
+		# 		if DEBUG: print("Early exit for btime = total_breaks_time")
+		# 		return self.total_breaks_time # We can already exit
+		# 
+		# 	if btime > max_breaks_time:
+		# 		max_breaks_time = btime
+		# 
+		# 	if curr_break.next:
+		# 		curr_break = curr_break.next.next
+		# 	else:
+		# 		break
+		
+		# If there are too many breaks we have to limits our trials by ordering all breaks for their respective 
+		# duration and then executing our algorithm only for the first MAX_TRIALS
+		if self.total_breaks > MAX_TRIALS:
+			self.breaks_list.sort(key=lambda x: x.duration, reverse=True)
+		
+		for i,curr_break in enumerate(self.breaks_list):
+			if i > MAX_TRIALS:
+				if DEBUG: print("Break after %s trials"%MAX_TRIALS)
+				return max_breaks_time
+			
 			if DEBUG: print("> %s" % curr_break)
 			cog = CenterOfGravity(self, curr_break, self.k)
 			btime = cog.explore()
-			
+
 			if btime == self.total_breaks_time:
 				if DEBUG: print("Early exit for btime = total_breaks_time")
-				return self.total_breaks_time # We can already exit
-			
+				return self.total_breaks_time  # We can already exit
+
 			if btime > max_breaks_time:
 				max_breaks_time = btime
-			
-			if curr_break.next:
-				curr_break = curr_break.next.next
-			else:
-				break
 		
 		return max_breaks_time
 
@@ -418,6 +444,6 @@ def test():
 # --------------------------------------------------------------------------- #
 
 if __name__ == '__main__':
-	# test()
-	main()
+	test()
+	#main()
 
