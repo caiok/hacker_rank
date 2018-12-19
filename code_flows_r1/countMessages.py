@@ -2,7 +2,7 @@
 #  -*- coding: utf-8 -*-
 
 """
-NOT COMPLETE
+Result: 
 
 Time: 3h10m
 """
