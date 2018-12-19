@@ -1,6 +1,12 @@
 #!/bin/python3
 #  -*- coding: utf-8 -*-
 
+"""
+Result 12/12
+Time: 1h34m
+"""
+
+
 import math
 import os
 import random

@@ -2,6 +2,8 @@
 #  -*- coding: utf-8 -*-
 
 """
+Result: 8/8
+
 Time: 20m
 """
 
