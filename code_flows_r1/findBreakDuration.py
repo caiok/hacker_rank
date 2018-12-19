@@ -2,6 +2,7 @@
 #  -*- coding: utf-8 -*-
 
 """
+Points: 75
 Result: 11/14
 
 Time: 6h

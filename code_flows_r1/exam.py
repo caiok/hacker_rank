@@ -2,6 +2,7 @@
 #  -*- coding: utf-8 -*-
 
 """
+Points: 50
 Result: 8/8
 
 Time: 20m

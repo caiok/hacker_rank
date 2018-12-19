@@ -2,7 +2,8 @@
 #  -*- coding: utf-8 -*-
 
 """
-Result: 
+Points: 75
+Result: 10/14
 
 Time: 3h10m
 """
