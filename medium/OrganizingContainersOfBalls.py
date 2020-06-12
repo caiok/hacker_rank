@@ -279,7 +279,7 @@ if __name__ == '__main__':
 		for _ in range(n):
 			container.append(list(map(int, input().rstrip().split())))
 
-		result = organizingContainers(container)
+		result = organizingContainers_mine(container)
 
 		fptr.write(result + '\n')
 
