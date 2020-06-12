@@ -132,10 +132,6 @@ def organizingContainers_mine(containers):
 	#   containers[container][type] = how_many
 	
 	for i in range(len(containers)):
-		# must_receive = hom_many_must_receive(containers, i)
-		# must_transfer = hom_many_must_transfer(containers, i)
-		# if must_receive != must_transfer:
-		# 	return "Impossible"
 		
 		for j in range(i + 1, len(containers)):
 			done = retrieve_all(containers, i, j)
@@ -248,7 +244,6 @@ def generate_matrix_randomly(n):
 		dst[x] += 1
 		dst[y] -= 1
 		src[y] += 1
-		
 		#pprint(containers)
 	
 	pprint(containers)
@@ -269,9 +264,8 @@ def add_randomly_to_matrix(containers, n):
 
 
 if __name__ == '__main__':
-	test()
-	# generate_matrix_randomly(5)
-	sys.exit()
+	#test()
+	#sys.exit()
 	
 	fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
